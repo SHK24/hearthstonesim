@@ -1,0 +1,59 @@
+<script src="../scripts/common.js"></script>
+<script src="../scripts/gauss.js"></script>
+<script src="../scripts/backend.js"></script>
+<script src="../scripts/frontend.js"></script>
+
+<style>
+   body {
+    margin: 0; /* Убираем отступы */
+    height: 100%; /* Высота страницы */
+    background: url("https://cdn.igromania.ru/mnt/news/1/f/2/8/f/2/95736/c6edadeda8711aef_1920xH.jpg"); /* Параметры фона */
+    background-size: cover; /* Фон занимает всю доступную площадь */
+   } 
+   
+	.cropimg {
+
+		position: absolute;
+
+		clip: rect(0px,500px,1000px,500px);
+
+	}
+</style>
+
+<body>
+	
+	<table align="center" width=100%>
+		<tr align="center">
+			<td>
+				<img id="title" src="https://i.pinimg.com/originals/da/da/45/dada4567422538d10d3b87bea490449e.png">
+				</img>			
+			</td>
+		</tr>
+	
+		<tr align="center">
+			<td>
+				<table id="tavern">
+				</table>
+			</td>
+		</tr>
+		<tr align="center">
+			<td>
+				<button onclick=refreshTavern() style="width:200;height:50;align: center">
+					Next Roll
+				</button>
+			</td>
+		</tr>
+		<tr align="center">
+			<td>
+				<table id="state" align="center">
+				</table>
+			</td>
+		</tr>	
+	</table>
+	
+</body>
+
+<script>
+	screenInit()
+	initJsonData()
+</script>
