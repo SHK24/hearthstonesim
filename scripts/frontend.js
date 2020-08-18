@@ -51,9 +51,20 @@ function clearStateView() {
 
 function refreshTavern() {
 	
-	clearTavernView()
-	currentTavern = getRoll(state.level, state.tavernSlots)
-	drawTavern(currentTavern)
+    if(state.gold == 0) return;
+
+    if(!state.isFreez) {
+	    clearTavernView()
+	    currentTavern = getRoll(state.level, state.tavernSlots)
+	    drawTavern(currentTavern)
+        drawLevel(state.level)
+    }
+
+    state.gold -= 1
+    
+    drawUpdateCost(state.updateCost)
+    changedGold(state.gold)
+    drawTurn(state.turn)
 }
 
 function drawTavern(tavern) {
@@ -88,6 +99,30 @@ function drawTavern(tavern) {
 		console.log("Set Interval")
 	
 	tavernView.append(tr)
+}
+
+function drawLevel(levelValue) {
+    levelView = document.getElementById("levelView")
+
+    levelView.innerText = "Current level: " + (levelValue+1);
+}
+
+function drawGold(gold) {
+    goldView = document.getElementById("goldView")
+
+    goldView.innerText = "Current coins: " + (gold);
+}
+
+function drawTurn(turn) {
+    turnView = document.getElementById("turnView")
+
+    turnView.innerText = "Current turn: " + (turn);
+}
+
+function drawUpdateCost(cost) {
+    updateCostView = document.getElementById("updateCostView")
+
+    updateCostView.innerText = "Update cost: " + (cost);
 }
 
 function drawState() {

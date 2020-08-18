@@ -59,7 +59,7 @@ function fillGlobalSlots() {
 				minionsJSON = minionsJsonData[tierKeys[tierNum]]
 				minionNames = Object.keys(minionsJSON)
 				
-				minionObject = new Minion(tierNum, minion, minionNames[minion], position,  "Untitled", minionsJSON[minionNames[minion]])
+				minionObject = new Minion(tierNum, minion, minionNames[minion], position, minionsJSON[minionNames[minion]]['cost'], minionsJSON[minionNames[minion]]['type'], minionsJSON[minionNames[minion]]['src'])
 				globalSlots[position] = minionObject
 			}
 		}
@@ -77,11 +77,18 @@ function getRoll(maxLevel, tavernSlotsCount) {
 	
 	for(i = 0; i < tavernSlotsCount;i++)
 		tavernSlots.push(getMinion(state.level, tavernSlots))
-	
+
 	return tavernSlots
 }
 
 function buyMinion(globalSlot, tavernSlot) {
+
+    if(state.gold < 3) return;
+
+    state.gold -= 3;
+
+    changedGold(state.gold);
+
 	state.minions.push(globalSlots[globalSlot])
 	freeSlot(globalSlot)
 	
@@ -94,8 +101,55 @@ function buyMinion(globalSlot, tavernSlot) {
 
 function sellMinion(homeSlot, stateSlot) {
 	globalSlots[homeSlot] = state.minions[stateSlot]
-	state.minions.splice(stateSlot, 1)
+    state.gold += state.minions[stateSlot].cost;	
+
+    state.minions.splice(stateSlot, 1)
 	drawState()
+
+    changedGold(state.gold);
+}
+
+function levelUp() {
+    if(state.level < 6) {
+        
+        if(state.gold >= state.updateCost) {
+            state.level += 1
+            drawLevel(state.level)
+
+            state.gold -= state.updateCost
+
+            state.updateCost = updateCost[state.level]
+            drawUpdateCost(state.updateCost)
+
+            changedGold()
+        }
+    }
+
+    state.tavernSlots = slots[state.level]
+}
+
+function changedGold() {
+    drawGold(state.gold)
+}
+
+function nextTurn() {
+
+    state.turn += 1
+
+    if(state.turn <= 7)
+        state.gold = turns[state.turn]
+    else
+        state.gold = 10
+    state.updateCost -= 1
+    drawUpdateCost(state.updateCost)
+
+    refreshTavern()
+
+    state.isFreez = false
+}
+
+function setFreez() {
+    state.isFreez = !state.isFreez
 }
 
 function initJsonData() {
