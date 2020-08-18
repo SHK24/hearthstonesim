@@ -102,7 +102,7 @@ function initJsonData() {
 
 	let xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'http://localhost:8085/hsData.json');
+	xhr.open('GET', 'http://185.22.61.153/hsData.json');
 
 	xhr.responseType = 'json';
 

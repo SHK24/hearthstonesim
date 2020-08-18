@@ -2,6 +2,8 @@ titleWidthDivider = 1
 titleHeightDivider = 1
 cardDivider = 1
 
+imgs = []
+
 function screenInit() {
 	screenWidth  = window.screen.width
 	screenHeight = window.screen.height
@@ -58,6 +60,7 @@ function drawTavern(tavern) {
 	tavernView = document.getElementById("tavern")
 	
 	tr = document.createElement("tr")
+	imgs = []
 	
 	tavern.forEach(function(item, index) {
 		
@@ -69,11 +72,20 @@ function drawTavern(tavern) {
 			img.setAttribute("width", screenWidth / cardDivider)
 			img.setAttribute("onClick", "buyMinion(" + globalSlots[item].homeSlot + "," + index + ")")
 			
+			img.style.opacity = "0.0";
+			
+			imgs.push(img)
+			
 			td.append(img)
 			
 			tr.append(td)
 		}
 	});
+	
+	opacityTimer = setInterval(changeOpacity, 10);
+	
+	if(isDebug)
+		console.log("Set Interval")
 	
 	tavernView.append(tr)
 }
@@ -101,6 +113,21 @@ function drawState() {
 			tr.append(td)
 		}
 	});
+
 	
 	tavernView.append(tr)
+}
+
+function changeOpacity() {
+		
+	
+	for(i = 0; i < imgs.length;i++)
+	imgs[i].style.opacity = parseFloat(imgs[0].style.opacity) + 0.05
+
+	if(parseFloat(imgs[0].style.opacity) >= 1) {
+		clearInterval(opacityTimer);
+		
+		if(isDebug)
+			console.log("STOP")
+	}
 }
