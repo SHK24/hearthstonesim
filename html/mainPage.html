@@ -5,10 +5,10 @@
 
 <style>
    body {
-    margin: 0; /* Убираем отступы */
-    height: 100%; /* Высота страницы */
-    background: url("https://cdn.igromania.ru/mnt/news/1/f/2/8/f/2/95736/c6edadeda8711aef_1920xH.jpg"); /* Параметры фона */
-    background-size: cover; /* Фон занимает всю доступную площадь */
+    margin: 0;
+    height: 100%; 
+    background: url("https://cdn.igromania.ru/mnt/news/1/f/2/8/f/2/95736/c6edadeda8711aef_1920xH.jpg");
+    background-size: cover;
    } 
    
 	.cropimg {
@@ -18,20 +18,26 @@
 		clip: rect(0px,500px,1000px,500px);
 
 	}
+
+    h2 {
+        text-shadow: 3px 3px 3px #000;
+        background: #a84f00;
+        border-radius: 5px;
+    }
 </style>
 
 <body>
 	
 	<table align="center" width=100%>
 		<tr align="center">
-			<td>
+			<td colspan=7>
 				<img id="title" src="https://i.pinimg.com/originals/da/da/45/dada4567422538d10d3b87bea490449e.png">
 				</img>			
 			</td>
 		</tr>
 	
 		<tr align="center">
-			<td>
+			<td colspan=7>
 				<table id="tavern">
 				</table>
 			</td>
@@ -42,9 +48,38 @@
 					Next Roll
 				</button>
 			</td>
+            <td>
+				<button onclick=levelUp() style="width:200;height:50;align: center">
+					Next Level
+				</button>
+			</td>
+            <td>
+				<button onclick=nextTurn() style="width:200;height:50;align: center">
+					Next Turn
+				</button>
+			</td>
+            <td>
+				<button onclick=setFreez() style="width:200;height:50;align: center">
+					Freez
+				</button>
+			</td>
+         </tr>
+         </tr>
+            <td align="center">
+				<h2 id="levelView" style="color:white"><h2>
+			</td>
+            <td align="center">
+				<h2 id="goldView" style="color:white"><h2>
+			</td>
+            <td align="center">
+				<h2 id="turnView" style="color:white"><h2>
+			</td>
+            <td align="center">
+				<h2 id="updateCostView" style="color:white"><h2>
+			</td>
 		</tr>
 		<tr align="center">
-			<td>
+			<td colspan=7>
 				<table id="state" align="center">
 				</table>
 			</td>
